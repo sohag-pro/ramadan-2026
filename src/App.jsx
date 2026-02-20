@@ -7,6 +7,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [activeTab, setActiveTab] = useState(0); // 0: 1-10, 1: 11-20, 2: 21-30
 
   const toBengaliDigits = (str) => {
     const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -137,6 +138,26 @@ function App() {
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2>রমজান ক্যালেন্ডার ২০২৬</h2>
+            <div className="modal-tabs">
+              <button
+                className={`tab-btn ${activeTab === 0 ? 'active' : ''}`}
+                onClick={() => setActiveTab(0)}
+              >
+                রহমত (১-১০)
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 1 ? 'active' : ''}`}
+                onClick={() => setActiveTab(1)}
+              >
+                মাগফিরাত (১১-২০)
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 2 ? 'active' : ''}`}
+                onClick={() => setActiveTab(2)}
+              >
+                নাজাত (২১-৩০)
+              </button>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -147,7 +168,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {data.map(day => (
+                {data.slice(activeTab * 10, (activeTab + 1) * 10).map(day => (
                   <tr key={day.ramadan}>
                     <td>{toBengaliDigits(day.ramadan.toString())}</td>
                     <td>{day.date}</td>
@@ -157,7 +178,7 @@ function App() {
                 ))}
               </tbody>
             </table>
-            <button onClick={() => setShowModal(false)}>বন্ধ করুন</button>
+            <button className="close-btn" onClick={() => setShowModal(false)}>বন্ধ করুন</button>
           </div>
         </div>
       )}
