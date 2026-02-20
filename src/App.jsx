@@ -100,12 +100,14 @@ function App() {
   return (
     <div className="app">
       <div className="header">
-        <button onClick={toggleFullscreen} className="fullscreen-btn">
-          {isFullscreen ? 'এক্সিট ফুলস্ক্রিন' : 'ফুলস্ক্রিন'}
-        </button>
-        <button onClick={() => setShowModal(true)} className="calendar-btn">
-          ক্যালেন্ডার দেখুন
-        </button>
+        <div className="buttons">
+          <button onClick={toggleFullscreen} className="fullscreen-btn">
+            {isFullscreen ? 'এক্সিট ফুলস্ক্রিন' : 'ফুলস্ক্রিন'}
+          </button>
+          <button onClick={() => setShowModal(true)} className="calendar-btn">
+            ক্যালেন্ডার দেখুন
+          </button>
+        </div>
       </div>
       <div className="info">
         <div className="info-item">
@@ -125,7 +127,7 @@ function App() {
           <p>{event} - {nextTimeStr}</p>
         </div>
       </div>
-      <div className={`timer ${timeLeft <= 0 ? 'end' : timeLeft <= 60000 ? 'pulse' : ''}`}>
+      <div className={`timer-container ${timeLeft <= 0 ? 'end' : timeLeft <= 60000 ? 'pulse' : ''}`}>
         {timeLeft > 0 ? timeLeftStr : 'সময় শেষ!'}
       </div>
       <div className="progress-container">

@@ -1,10 +1,9 @@
 body {
   margin: 0;
   font-family: 'Kalpurush', sans-serif;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #e94560 100%);
+  background: #000000;
   color: white;
   overflow: hidden;
-  animation: bgShift 10s ease-in-out infinite alternate;
 }
 
 @font-face {
@@ -12,9 +11,9 @@ body {
   src: url('./kalpurush.ttf') format('truetype');
 }
 
-@keyframes bgShift {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 .app {
@@ -33,14 +32,18 @@ body {
   top: 20px;
   right: 20px;
   display: flex;
-  gap: 10px;
   z-index: 10;
 }
 
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .fullscreen-btn, .calendar-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  color: white;
+  background: rgba(0, 191, 255, 0.1);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  color: #00bfff;
   padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
@@ -53,10 +56,10 @@ body {
 }
 
 .fullscreen-btn:hover, .calendar-btn:hover {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: rgba(0, 212, 255, 0.6);
+  background: rgba(0, 191, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.6);
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
 }
 
 .info {
@@ -70,43 +73,26 @@ body {
 
 .info-item {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid rgba(0, 191, 255, 0.3);
   border-radius: 12px;
   padding: 15px;
   text-align: center;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.info-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
-
-.info-item:hover::before {
-  left: 100%;
 }
 
 .info-item:hover {
-  border-color: rgba(0, 212, 255, 0.6);
-  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 191, 255, 0.2);
   transform: translateY(-2px);
 }
 
 .info-item h3 {
   margin: 0 0 10px 0;
   font-size: 1.2rem;
-  color: #00d4ff;
-  text-shadow: 0 0 10px #00d4ff;
+  color: #00bfff;
+  text-shadow: 0 0 10px #00bfff;
 }
 
 .info-item p {
@@ -114,29 +100,40 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ffffff;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-.timer {
-  font-size: 15rem;
+.timer-container {
+  font-size: 12rem;
   font-weight: bold;
-  text-shadow: 0 0 30px #00ff88, 0 0 60px #00ff88, 0 0 90px #00ff88;
-  animation: glow 2s ease-in-out infinite alternate;
-  margin: auto;
+  font-family: 'Kalpurush', sans-serif;
+  color: #00bfff;
+  text-shadow: 0 0 20px #00bfff, 0 0 40px #00bfff, 0 0 60px #00bfff;
+  display: flex;
+  text-align: left;
+  width: 750px;
+  white-space: nowrap;
   line-height: 1;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 30px #00ff88, 0 0 60px #00ff88, 0 0 90px #00ff88;
+    text-shadow: 0 0 20px #00bfff, 0 0 40px #00bfff, 0 0 60px #00bfff;
+    box-shadow: 0 0 20px #00bfff;
   }
   to {
-    text-shadow: 0 0 40px #00ff88, 0 0 80px #00ff88, 0 0 120px #00ff88;
+    text-shadow: 0 0 40px #00bfff, 0 0 80px #00bfff, 0 0 120px #00bfff;
+    box-shadow: 0 0 40px #00bfff;
   }
 }
 
-.timer.pulse {
-  animation: glow 2s ease-in-out infinite alternate, pulse 0.5s infinite;
+.timer-container.pulse {
+  animation: pulse 0.5s infinite;
 }
 
 @keyframes pulse {
@@ -145,10 +142,10 @@ body {
   100% { transform: scale(1); }
 }
 
-.timer.end {
-  color: #ff6b6b;
-  text-shadow: 0 0 30px #ff6b6b, 0 0 60px #ff6b6b;
-  animation: glow 2s ease-in-out infinite alternate, shake 0.5s infinite;
+.timer-container.end {
+  color: #ff0000;
+  text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+  animation: shake 0.5s infinite;
 }
 
 @keyframes shake {
@@ -160,20 +157,20 @@ body {
 .progress-container {
   width: 60%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   overflow: hidden;
   margin: 15px auto;
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(0, 191, 255, 0.2);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #00ff88, #00d4ff, #ff6b6b);
+  background: linear-gradient(90deg, #00bfff, #0080ff);
   border-radius: 4px;
   transition: width 1s ease;
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 
 .modal-overlay {
@@ -191,15 +188,15 @@ body {
 }
 
 .modal {
-  background: rgba(30, 30, 47, 0.95);
+  background: rgba(0, 0, 0, 0.9);
   color: white;
   padding: 20px;
   border-radius: 15px;
   max-width: 80%;
   max-height: 80%;
   overflow: auto;
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
 }
 
 .modal h2 {
@@ -215,20 +212,20 @@ table {
   background: rgba(255, 255, 255, 0.02);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(0, 191, 255, 0.2);
 }
 
 th, td {
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 191, 255, 0.1);
   padding: 10px;
   text-align: center;
   font-size: 0.9rem;
 }
 
 th {
-  background: rgba(0, 212, 255, 0.1);
-  color: #00d4ff;
-  text-shadow: 0 0 5px #00d4ff;
+  background: rgba(0, 191, 255, 0.1);
+  color: #00bfff;
+  text-shadow: 0 0 5px #00bfff;
 }
 
 td {
@@ -238,9 +235,9 @@ td {
 .modal button {
   display: block;
   margin: 15px auto 0;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  color: #00d4ff;
+  background: rgba(0, 191, 255, 0.1);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  color: #00bfff;
   padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
@@ -250,8 +247,8 @@ td {
 }
 
 .modal button:hover {
-  background: rgba(0, 212, 255, 0.2);
-  border-color: rgba(0, 212, 255, 0.6);
+  background: rgba(0, 191, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.6);
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
 }
